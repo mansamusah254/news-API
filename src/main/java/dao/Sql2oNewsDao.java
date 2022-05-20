@@ -24,6 +24,8 @@ public class Sql2oNewsDao implements NewsDao {
            news.setId(id);
         }catch (Sql2oException ex){
             System.out.println(ex);
+        }catch (ClassCastException ex){
+            System.out.println(ex);
         }
     }
 
