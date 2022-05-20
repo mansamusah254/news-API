@@ -36,7 +36,7 @@ public class App {
         Gson gson = new Gson();
 
         String connectingString = "jdbc:postgresql://localhost:5432/newsapi_test";
-        Sql2o sql2o = new Sql2o(connectingString,"calvo-linus","Somoca1421@.");
+        Sql2o sql2o = new Sql2o(connectingString,"postgres","kamotho");
         departmentDao = new Sql2oDepartmentDao(sql2o);
         newsDao = new Sql2oNewsDao(sql2o);
         employeesDao = new Sql2oEmployeesDao(sql2o);
