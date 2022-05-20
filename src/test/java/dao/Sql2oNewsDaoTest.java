@@ -15,8 +15,8 @@ public class Sql2oNewsDaoTest {
 
     @BeforeClass
     public  static void setUp() throws Exception {
-        String connectingString = "jdbc:postgresql://localhost:5432/newsapi_test";
-        Sql2o sql2o = new Sql2o(connectingString,"calvo-linus","Somoca1421@.");
+        String connectingString = "jdbc:postgresql://localhost:5432/new_api";
+        Sql2o sql2o = new Sql2o(connectingString,"postgres","kamotho");
         newsDao = new Sql2oNewsDao(sql2o);
         conn = sql2o.open();
     }
@@ -40,6 +40,6 @@ public class Sql2oNewsDaoTest {
 
 
     public News setupNews(){
-        return new News("Business","Kenya lost 400 billions",4);
+        return new News("Business","Kwani hauna pesa bro",4);
     }
 }
