@@ -125,19 +125,26 @@ public class App {
 
         //get:View All news
         get("/news","application/json",(request, response) -> {
-            int departmentId = Integer.parseInt(request.params("departmentId"));
             return gson.toJson(newsDao.getAllNews());
         });
 
-        //post:Add department
-        post("/department/new","application/json",(request, response) -> {
-            Department department = gson.fromJson(request.body(),Department.class);
-            departmentDao.add(department);
 
-            response.type("application/json");
-            response.status(201);
-            return gson.toJson(departmentDao.getAll());
+        post("/department/new", "application/json", (req, res) -> {
+            Department department = gson.fromJson(req.body(), Department.class);
+            departmentDao.add(department);
+            res.status(201);
+            res.type("application/json");
+            return gson.toJson(department);
         });
+
+        //post:Add department
+//        post("/department/new","application/json",(request, response) -> {
+//            Department department = gson.fromJson(request.body(),Department.class);
+//            departmentDao.add(department);
+//            response.type("application/json");
+//            response.status(201);
+//            return gson.toJson(departmentDao.getAll());
+//        });
 
         //get:view all departments
         get("/department","application/json",(request, response) -> {
