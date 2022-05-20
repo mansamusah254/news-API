@@ -35,7 +35,7 @@ public class App {
         Connection conn;
         Gson gson = new Gson();
 
-        String connectingString = "jdbc:postgresql://localhost:5432/newsapi_test";
+        String connectingString = "jdbc:postgresql://localhost:5432/new_api";
         Sql2o sql2o = new Sql2o(connectingString,"postgres","kamotho");
         departmentDao = new Sql2oDepartmentDao(sql2o);
         newsDao = new Sql2oNewsDao(sql2o);
@@ -90,16 +90,26 @@ public class App {
             return new ModelAndView(model,"news-form.hbs");
         },new HandlebarsTemplateEngine());
 
-        post("/new/news", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            String title = req.queryParams("title");
-            String content = req.queryParams("content");
-           int departmentId = Integer.parseInt(req.queryParams("departmentId"));
-           News news = new News(title,content, departmentId);
+
+
+        post("/new/news", "application/json", (req, res) -> {
+            News news = gson.fromJson(req.body(), News.class);
             newsDao.add(news);
-            model.put("news",newsDao.getAllNews());
-            return new ModelAndView(model,"news-detail.hbs");
-        },new HandlebarsTemplateEngine());
+            res.status(201);
+            res.type("application/json");
+            return gson.toJson(news);
+        });
+
+//        post("/new/news", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            String title = req.queryParams("title");
+//            String content = req.queryParams("content");
+//           int departmentId = Integer.parseInt(req.queryParams("departmentId"));
+//           News news = new News(title,content, departmentId);
+//            newsDao.add(news);
+//            model.put("news",newsDao.getAllNews());
+//            return new ModelAndView(model,"news-detail.hbs");
+//        },new HandlebarsTemplateEngine());
 
 
         //gson ones
